@@ -1,16 +1,43 @@
 // LoginPage.js
 
+import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+const baseUrl = "http://localhost:2000";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your login logic here
-    console.log("Logging in with:", email, password);
+    const loginUrl = baseUrl + "/users/login";
+    try {
+      const response = await axios.post(loginUrl, {
+        email,
+        password,
+      });
+      alert(response.data.message);
+      localStorage.setItem("token", response.data.token);
+      axios.defaults.headers.common["authorization"] = response.data.token;
+      console.log(response.data)
+      navigate("/orders/create");
+    } catch (error) {
+       if (error.response) {
+         // The request was made and the server responded with a status code
+         // that falls out of the range of 2xx
+         console.log(error.response.data);
+         // Assuming the error response from the server is in the format { error: [messages] }
+         alert(error.response.data.error.join("\n"));
+       } else if (error.request) {
+         // The request was made but no response was received
+         console.log(error.request);
+       } else {
+         // Something happened in setting up the request that triggered an Error
+         console.log("Error", error.message);
+       }
+    }
   };
 
   return (
