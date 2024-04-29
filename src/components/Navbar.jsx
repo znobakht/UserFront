@@ -11,6 +11,9 @@ function Navbar() {
           Home
         </Link> */}
         <div>
+          <Link to="/login" className="text-white mr-7">
+            Login
+          </Link>
           <Link to="/orders/create" className="text-white mr-7">
             Add an Order
           </Link>

@@ -6,6 +6,7 @@ import SignupPage from './pages/SignupPage'
 import AddOrderPage from './pages/AddOrderPage'
 import OrdersPage from './pages/OrdersPage'
 import EditOrderPage from './pages/EditOrderPage'
+import PdfViewerPage from './pages/PdfViewerPage'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path='/orders/create' exact element={<AddOrderPage />}/>
         <Route path='/orders/all' exact element={<OrdersPage />}/>
         <Route path='/orders/edit/:orderId' exact element={<EditOrderPage />}/>
+        <Route path='/orders/pdf/:orderId' exact element={<PdfViewerPage />}/>
       </Routes>
     </Fragment>
   )
